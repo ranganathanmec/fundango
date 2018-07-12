@@ -54,7 +54,7 @@
                     $lesson_name=$_POST['lesson_name'];
                     $lesson_discription=$_POST['lesson_discription'];
                     $keywords=$_POST['keywords'];
-                    $review_quest=$_POST['review_quest'];
+                    
                     
                     $_FILES['lesson']['dest_path']=preg_replace('/\s+/', '', $lesson_name);
                     $_FILES['assessmentfile']['dest_path']=preg_replace('/\s+/', '', $lesson_name).'_assess';
@@ -89,13 +89,13 @@
                             $le_file_name=$name_array[0];
                             $ass_file_name=$name_array[1];
                         
-                            $que="INSERT INTO `lessons`(`lesson_name`, `lesson_file`, `lesson_discription`, `assessment_file`, `review_questions`, `term_id`,`class_name`, `subject_id`, `keywords`, `created_date`, `status` ) VALUES ('$lesson_name','$le_file_name','$lesson_discription','$ass_file_name','$review_quest','$term','$class','$subject','$keywords',now(),'1')";
+                            $que="INSERT INTO `lessons`(`lesson_name`, `lesson_file`, `lesson_discription`, `assessment_file`,`term_id`,`class_name`, `subject_id`, `keywords`, `created_date`, `status` ) VALUES ('$lesson_name','$le_file_name','$lesson_discription','$ass_file_name','$term','$class','$subject','$keywords',now(),'1')";
                             $query = mysqli_query($conn,$que);
                             $last_id=mysqli_insert_id($conn);	
                             if($query)
                             {
                                $qa= mysqli_query($conn,"insert into lessonmodificationlog (lession_id,class_id,subject_id) values ('$last_id','$class','$subject')");
-                                $qx=mysqli_query($conn,"insert into class_subject (`class_id`,`subject_id`,`term_id`,`created_date`) values ('$class','$subject','$term',now())");
+                                $qx=mysqli_query($conn,"insert into class_subject (`class_name`,`subject_id`,`term_id`,`created_date`) values ('$class','$subject','$term',now())");
                                 
 
                               
@@ -126,7 +126,7 @@
 
                     
                       <span class="section">Add Plan Info</span>  
-					  <span style="color:red;margin-left:990px;">* indicating mandatory fields</span>
+					  <span style="color:red;float:right;">* indicating mandatory fields</span>
 					  
 					 
 					 
@@ -243,13 +243,7 @@
 					
 					   
 					 
-					   <div class="item form-group">
-                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="topics">Review Questions <span class="required" style="color:red;">*</span>
-                        </label>
-                        <div class="col-md-6 col-sm-6 col-xs-12">
-						<input type='text' class="form-control"  id="topics" name="review_quest" />
-                        </div>
-                      </div>
+					   
 					  
 					 		
 					
@@ -393,14 +387,7 @@
                     }
         },
         
-        review_quest:{
-                    validators: {
-                        notEmpty: {
-                            message: 'Please Select a Review Questions'
-                        }
-                    }
-        },
-        lesson:{
+       lesson:{
                     validators: {
                         notEmpty: {
                             message: 'Please Select Lesson Audio File'

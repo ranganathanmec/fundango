@@ -31,7 +31,7 @@
                         $lesson_name=$_POST['lesson_name'];
                         $lesson_discription=$_POST['lesson_discription'];
                         $keywords=$_POST['keywords'];
-                        $review_quest=$_POST['review_quest'];
+                        
                         $audio_formats=array('mp3','aac','wav','m4a','wma','webm');
                         
                         $l_flag='';
@@ -78,14 +78,15 @@
                     if($_FILES['lesson']['name']!='' && $_FILES['assessmentfile']['name']!='' )
                     {
                         
-                        $obx=new access_files();                    
+                        $obx=new access_files();   
+                                     
                          $l_flag=$obx->move_audio_file($_FILES['lesson']);
                          $a_flag=$obx->move_audio_file($_FILES['assessmentfile']);
                          if($l_flag!='' && $a_flag!='')
                          {
                              unlink("uploads/".$d_less);
                              unlink("uploads/".$d_ass);
-                             $q="UPDATE `lessons` SET `lesson_file`='$l_flag',`assessment_file`='$a_flag',`lesson_name`='$lesson_name',`lesson_discription`='$lesson_discription',`review_questions`='$review_quest', `term_id`='$term',`class_name`='$class',`subject_id`='$subject', `keywords`='$keywords',`status`='$status' WHERE `lesson_id`='$lesson_id'";
+                             $q="UPDATE `lessons` SET `lesson_file`='$l_flag',`assessment_file`='$a_flag',`lesson_name`='$lesson_name',`lesson_discription`='$lesson_discription',`term_id`='$term',`class_name`='$class',`subject_id`='$subject', `keywords`='$keywords',`status`='$status' WHERE `lesson_id`='$lesson_id'";
                             if(mysqli_query($conn,$q))
                              {
                                 $qa= mysqli_query($conn,"UPDATE lessonmodificationlog SET modified_date=now() where lession_id='$lesson_id'");
@@ -247,7 +248,7 @@
 
                     
                       <span class="section">Update Lesson Info</span>  
-					  <span style="color:red;margin-left:990px;">* indicating mandatory fields</span>
+					  <span style="color:red;float:right;">* indicating mandatory fields</span>
 					  
 					 
 					 

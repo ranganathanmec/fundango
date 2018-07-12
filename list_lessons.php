@@ -70,7 +70,7 @@
                       <tbody>
 					   <?php 
 					  
-					  $que = mysqli_query($conn,"select lessons.*,subjects.subject_name,term.term_name from lessons INNER JOIN subjects ON lessons.subject_id=subjects.subject_id INNER JOIN term on lessons.term_id=term.term_id ORDER BY lesson_id ASC");
+					  $que = mysqli_query($conn,"select lessons.*,subjects.subject_name,term.term_name from lessons INNER JOIN subjects ON lessons.subject_id=subjects.subject_id INNER JOIN term on lessons.term_id=term.term_id ORDER BY class_name ASC");
 					  
 					  
 					  while($row=mysqli_fetch_array($que)){ ?>

@@ -105,7 +105,7 @@
 
                     
                       <span class="section">Add Section Info</span>  
-					  <span style="color:red;margin-left:990px;">* indicating mandatory fields</span>
+					  <span style="color:red;float:right;">* indicating mandatory fields</span>
 					  
 					 
 					 

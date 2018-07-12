@@ -80,7 +80,7 @@
              else if(isset($_GET['false'])) 
                   $que = mysqli_query($conn,"SELECT login.*,school.school_name,class.class_name,section.section_name FROM `login` INNER JOIN  school on school.school_id=login.school_id INNER JOIN class ON class.class_id=login.class_id INNER JOIN section ON section.section_id=login.section_id  WHERE login.status=0 order by login.user_id,school_name,section_name ASC");
              else
-					        $que = mysqli_query($conn,"SELECT login.*,school.school_name,class.class_name,section.section_name FROM `login` INNER JOIN  school on school.school_id=login.school_id INNER JOIN class ON class.class_id=login.class_id INNER JOIN section ON section.section_id=login.section_id order by login.user_id,school_name,section_name ASC");
+					        $que = mysqli_query($conn,"SELECT login.*,school.school_name,class.class_name,section.section_name FROM `login` INNER JOIN  school on school.school_id=login.school_id INNER JOIN class ON class.class_id=login.class_id INNER JOIN section ON section.section_id=login.section_id order by school_name,section_name ASC");
 			
 					  
 					  while($row_lst=mysqli_fetch_array($que)){ ?>

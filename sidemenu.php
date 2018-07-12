@@ -66,31 +66,23 @@
                     </ul>
                   </li>
 
-                  </li>
+                  
                     <li><a><i class="fa fa-book" aria-hidden="true"></i> Manage Lessons</span></a>
                       <ul class="nav child_menu">
                           <li><a href="list_lessons.php">List Lesson</a></li> 
                           <li><a href="add_lessons.php">Add</a></li> 
                       </ul>
                     </li>
-                    </li>
-                    <li><a><i class="fa fa-chart-bar" aria-hidden="true"></i> Reports</span></a>
+                    
+
+                    <li><a><i class="fa fa-book" aria-hidden="true"></i> Reports</span></a>
                       <ul class="nav child_menu">
-                          <li><a href="#">Reports</a></li> 
-                          <li><a href="#">Report</a></li> 
+                          <li><a href="master_report.php">Master Report</a></li> 
+                         <!-- <li><a href="#">Report</a></li> -->
                       </ul>
                     </li>
 
                   
-
-                 
-
-                  
-
-
-                  
-
-                 
                   
                 </ul>
               </div>

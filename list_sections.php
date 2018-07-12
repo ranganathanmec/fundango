@@ -32,7 +32,7 @@
                                 <a href="add_sections.php" class="btn default yellow-stripe">
                                 <i class="fa fa-plus"></i>
                                 <span class="hidden-480" style="color:#2a3f54;">
-                                Add Class</span>
+                                Add Section</span>
                                 </a>
 								</div></li>
 					

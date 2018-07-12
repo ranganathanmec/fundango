@@ -16,6 +16,14 @@
     <link rel="stylesheet" href="bootstrap-tagsinput.css">
  <!--  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script> -->
+
+  <!--Multi select -->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-3-typeahead/4.0.2/bootstrap3-typeahead.min.js"></script>  
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" />
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-multiselect/0.9.13/js/bootstrap-multiselect.js"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-multiselect/0.9.13/css/bootstrap-multiselect.css"/>
   
    <!-- page content -->
         <div class="right_col" role="main">
@@ -47,8 +55,63 @@
                     {	
 
 
-                    $class_name=$_POST['class_name'];
+                   // $class_name=$_POST['class_name'];
                     $school_id=$_POST['school_id'];  
+                   
+                    
+                    class Insertclass
+                    {
+                      //  public $conn1=mysqli_connect('localhost','root','','fundango');
+                        private $xc="";
+                        
+                        function __construct()
+                         {
+                            $this->xc=mysqli_connect('localhost','root','','fundango');
+                           
+                        }
+                        
+                        public function isValidClass($school_id,$c_name)
+                        {
+                            if(!mysqli_num_rows(mysqli_query($this->xc,"select * from class WHERE school_id='$school_id' and class_name='$c_name'"))>0)
+                                return 1;
+                            else
+                                return 0;
+                        }
+                        public function insertClassdata($school_id,$c_name)
+                        {
+                            $que="INSERT INTO `class`(`class_name`, `school_id`,`created_date`,`status`) VALUES ('$c_name','$school_id',now(),'1')";
+                            $query = mysqli_query($this->xc,$que);
+                            if($query)
+                             return 1;
+                            else
+                            return 0;
+                        }
+                    }
+                    $msg='';
+
+                    $obx=new Insertclass();
+                    foreach($_POST['class_name'] as $c_name)
+                    {
+                        if($obx->isValidClass($school_id,$c_name))
+                            {
+                                if($obx->insertClassdata($school_id,$c_name))   
+                                    $msg.="<font color='green' style='margin-left:400px;'>Class ".$c_name." is Added</font> </br>";
+                                else
+                                    $msg.="<font color='green' style='margin-left:400px;'>Error while Adding Class ".$c_name."</br></font>";
+
+                            }
+                        else
+                        $msg.="<font color='red' style='margin-left:400px;'>Class ".$c_name." is Already Exist</br></font>";                            
+                      
+                    }
+
+                    echo $msg;
+
+                    
+                    
+
+
+                    /*
 
                     if(!mysqli_num_rows(mysqli_query($conn,"select * from class WHERE school_id='$school_id' and class_name='$class_name'"))>0)
                         {
@@ -71,6 +134,8 @@
                         }
                         else
                         echo "<font color='red' style='margin-left:400px;size:50px'>Class Already Exist</font>";
+
+                        */
                     }
 
 					?>
@@ -79,7 +144,7 @@
 
                     
                       <span class="section">Add Plan Info</span>  
-					  <span style="color:red;margin-left:990px;">* indicating mandatory fields</span>
+					  <span style="color:red;float:right;">* indicating mandatory fields</span>
 					  
 					 
 					 
@@ -119,7 +184,7 @@
                         <label class="control-label col-md-3 col-sm-3 col-xs-12" for="selclass">Class name<span class="required" style="color:red;">*</span>
                         </label>
                         <div class="col-md-6 col-sm-6 col-xs-12">
-                          <select id="class_name" class="form-control col-md-7 col-xs-12"  name="class_name" disabled >
+                          <select id="class_name" class="form-control col-md-7 col-xs-12"  name="class_name[]" multiple >
                           <option value="">select class name</option>
                           
                           </select>
@@ -138,7 +203,7 @@
                            <!-- <button type="button" class="btn btn-danger" onclick="javascript:location.href=''">Cancel</button> -->
                           <button id="send" type="submit" class="btn btn-success" name="send">Submit</button>
                         </div>
-                      </div
+                      </div>
     
 	
 	 
@@ -278,11 +343,7 @@
             }
         });
         });
-$('#tags-input').tagsinput({
-    confirmKeys: [13, 44],
-    cancelConfirmKeysOnEmpty: false,
-    tagClass: 'big'
-});
+
 $(document).ready(function(){
 
 $('#school_id').on('change',function(){
@@ -308,11 +369,24 @@ $('#school_id').on('change',function(){
     $('#class_name').attr('disabled',true);
 
    
-})
+});
 
 
 
-});  
+}); 
+
+
+$(document).ready(function(){
+ $('#class_name').multiselect({
+  nonSelectedText: 'Select Class',
+  enableFiltering: true,
+  enableCaseInsensitiveFiltering: true,
+  buttonWidth:'400px',
+ }); 
+
+ 
+ 
+});
 </script>
 
    
